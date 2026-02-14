@@ -1,3 +1,6 @@
+// Autor: Carlos Ron
+// Fecha: 14/02/2026
+// Proyecto: Sistema de Gestión de Libros
 package services
 
 import (
