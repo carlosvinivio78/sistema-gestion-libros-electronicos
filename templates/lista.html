@@ -1,0 +1,54 @@
+{{define "content"}}
+
+<a href="/libros/nuevo">➕ Agregar Libro</a>
+
+<hr>
+
+<h3>Buscar por ID</h3>
+<form action="/libros/buscarID" method="GET">
+    <input type="number" name="id" placeholder="Ingrese ID">
+    <button type="submit">Buscar</button>
+</form>
+
+<h3>Buscar por Título</h3>
+<form action="/libros/buscarTitulo" method="GET">
+    <input type="text" name="titulo" placeholder="Ingrese título">
+    <button type="submit">Buscar</button>
+</form>
+
+<br><br>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Año</th>
+        <th>Categoría</th>
+        <th>Acciones</th>
+    </tr>
+
+    {{range .}}
+    <tr>
+        <td>{{.ID}}</td>
+        <td>{{.Titulo}}</td>
+        <td>{{.Autor}}</td>
+        <td>{{.Anio}}</td>
+        <td>{{.Categoria}}</td>
+        <td>
+            <a href="/libros/buscarID?id={{.ID}}">Editar</a>
+            |
+            <a href="/libros/eliminar?id={{.ID}}">Eliminar</a>
+        </td>
+    </tr>
+    {{end}}
+
+</table>
+
+<br>
+
+<a href="/libros/contar"> Contar Libros</a>
+<br><br>
+<a href="/salir"> Salir</a>
+
+{{end}}

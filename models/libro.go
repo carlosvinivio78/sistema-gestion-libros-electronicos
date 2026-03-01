@@ -1,66 +1,91 @@
-// Autor: Carlos Ron
-// Fecha: 14/02/2026
-// Proyecto: Sistema de Gestión de Libros
-
+/*
+@Autor : Carlos Ron
+@Fecha: 28/02/2026
+@Descripcion : Desarollo de la aplicacion web "Sistema de gestion de libros electronicos"
+*/
 package models
 
-import "errors"
+import (
+	"sistema-gestion-libros-electronicos/db"
+)
 
-// Libro representa la estructura principal del sistema.
-// Sus atributos son privados (minúscula) para aplicar encapsulación.
+// Atributos
 type Libro struct {
-	id        int
-	titulo    string
-	autor     string
-	categoria string
-	anio      int
+	ID        int
+	Titulo    string
+	Autor     string
+	Anio      int
+	Categoria string
 }
 
-// NuevoLibro funciona como constructor.
-// Permite crear un nuevo libro con sus datos iniciales.
-func NuevoLibro(id int, titulo, autor, categoria string, anio int) *Libro {
-	return &Libro{
-		id:        id,
-		titulo:    titulo,
-		autor:     autor,
-		categoria: categoria,
-		anio:      anio,
+// AGREGAR
+func CrearLibro(libro Libro) error {
+	_, err := db.DB.Exec(
+		"INSERT INTO libros(titulo, autor, anio, categoria) VALUES(?,?,?,?)",
+		libro.Titulo, libro.Autor, libro.Anio, libro.Categoria)
+	return err
+}
+
+// LISTAR TODOS
+func GetLibros() ([]Libro, error) {
+	rows, err := db.DB.Query("SELECT * FROM libros")
+	if err != nil {
+		return nil, err
 	}
-}
+	defer rows.Close()
 
-// Métodos GET para acceder a los datos (encapsulación).
-func (l *Libro) GetID() int {
-	return l.id
-}
+	var libros []Libro
 
-func (l *Libro) GetTitulo() string {
-	return l.titulo
-}
-
-func (l *Libro) GetAutor() string {
-	return l.autor
-}
-
-func (l *Libro) GetCategoria() string {
-	return l.categoria
-}
-
-func (l *Libro) GetAnio() int {
-	return l.anio
-}
-
-// Actualizar modifica los datos del libro.
-// Valida que el título y autor no estén vacíos.
-func (l *Libro) Actualizar(titulo, autor, categoria string, anio int) error {
-
-	if titulo == "" || autor == "" {
-		return errors.New("titulo y autor no pueden estar vacíos")
+	for rows.Next() {
+		var l Libro
+		rows.Scan(&l.ID, &l.Titulo, &l.Autor, &l.Anio, &l.Categoria)
+		libros = append(libros, l)
 	}
+	return libros, nil
+}
 
-	l.titulo = titulo
-	l.autor = autor
-	l.categoria = categoria
-	l.anio = anio
+// BUSCAR POR ID
+func GetLibroByID(id int) (Libro, error) {
+	var l Libro
+	err := db.DB.QueryRow("SELECT * FROM libros WHERE id = ?", id).
+		Scan(&l.ID, &l.Titulo, &l.Autor, &l.Anio, &l.Categoria)
+	return l, err
+}
 
-	return nil
+// BUSCAR POR TITULO
+func BuscarPorTitulo(titulo string) ([]Libro, error) {
+	rows, err := db.DB.Query("SELECT * FROM libros WHERE titulo LIKE ?", "%"+titulo+"%")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var libros []Libro
+	for rows.Next() {
+		var l Libro
+		rows.Scan(&l.ID, &l.Titulo, &l.Autor, &l.Anio, &l.Categoria)
+		libros = append(libros, l)
+	}
+	return libros, nil
+}
+
+// ACTUALIZAR
+func ActualizarLibro(libro Libro) error {
+	_, err := db.DB.Exec(
+		"UPDATE libros SET titulo=?, autor=?, anio=?, categoria=? WHERE id=?",
+		libro.Titulo, libro.Autor, libro.Anio, libro.Categoria, libro.ID)
+	return err
+}
+
+// ELIMINAR
+func EliminarLibro(id int) error {
+	_, err := db.DB.Exec("DELETE FROM libros WHERE id=?", id)
+	return err
+}
+
+// CONTAR
+func ContarLibros() (int, error) {
+	var total int
+	err := db.DB.QueryRow("SELECT COUNT(*) FROM libros").Scan(&total)
+	return total, err
 }

@@ -1,0 +1,25 @@
+{{define "content"}}
+
+<h2>Agregar Libro</h2>
+
+<form action="/libros/guardar" method="POST">
+
+    Título:<br>
+    <input type="text" name="titulo"><br><br>
+
+    Autor:<br>
+    <input type="text" name="autor"><br><br>
+
+    Año:<br>
+    <input type="number" name="anio"><br><br>
+
+    Categoría:<br>
+    <input type="text" name="categoria"><br><br>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<br>
+<a href="/libros">Volver</a>
+
+{{end}}

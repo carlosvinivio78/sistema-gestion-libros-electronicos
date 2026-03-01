@@ -1,0 +1,27 @@
+{{define "content"}}
+
+<h2>Editar Libro</h2>
+
+<form action="/libros/actualizar" method="POST">
+
+    <input type="hidden" name="id" value="{{.ID}}">
+
+    Título:<br>
+    <input type="text" name="titulo" value="{{.Titulo}}"><br><br>
+
+    Autor:<br>
+    <input type="text" name="autor" value="{{.Autor}}"><br><br>
+
+    Año:<br>
+    <input type="number" name="anio" value="{{.Anio}}"><br><br>
+
+    Categoría:<br>
+    <input type="text" name="categoria" value="{{.Categoria}}"><br><br>
+
+    <button type="submit">Actualizar</button>
+</form>
+
+<br>
+<a href="/libros">Volver</a>
+
+{{end}}

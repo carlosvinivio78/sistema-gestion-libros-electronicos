@@ -1,0 +1,22 @@
+{{define "content"}}
+
+<h2>Buscar Libro</h2>
+
+<form action="/libros/buscarTitulo" method="GET">
+    Buscar por Título:
+    <input type="text" name="titulo">
+    <button type="submit">Buscar</button>
+</form>
+
+<br>
+
+<form action="/libros/buscarID" method="GET">
+    Buscar por ID:
+    <input type="number" name="id">
+    <button type="submit">Buscar</button>
+</form>
+
+<br>
+<a href="/libros">Volver</a>
+
+{{end}}
