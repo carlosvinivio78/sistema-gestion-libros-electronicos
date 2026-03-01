@@ -1,3 +1,8 @@
+/*
+@Autor : Carlos Ron
+@Fecha: 28/02/2026
+@Descripcion : Desarollo de la aplicacion web "Sistema de gestion de libros electronicos"
+*/
 package main
 
 import (
@@ -10,7 +15,7 @@ import (
 
 func main() {
 
-	// 🔥 Conectar a la base de datos y validar error
+	//  Conectar a la base de datos y validar error
 	_, err := db.Connect()
 	if err != nil {
 		log.Fatal("Error conectando a la BD:", err)

@@ -1,12 +1,22 @@
+/*
+@Autor : Carlos Ron
+@Fecha: 28/02/2026
+@Descripcion : Desarollo de la aplicacion web "Sistema de gestion de libros electronicos"
+*/
+
+/* Estilo general del cuerpo de la página*/
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f6f9;
     margin: 40px;
 }
 
+/* Estilo del título principal */
 h1 {
     color: #2c3e50;
 }
+
+/* Estilo de los enlaces */
 
 a {
     text-decoration: none;
@@ -16,15 +26,19 @@ a {
     border-radius: 5px;
 }
 
+/* Cambio de color cuando el mouse pasa sobre el enlace */
 a:hover {
     background-color: #2980b9;
 }
 
+/* Estilo general de la tabla */
 table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
 }
+
+/* Encabezados de la tabla */
 
 th {
     background-color: #2c3e50;
@@ -32,15 +46,19 @@ th {
     padding: 10px;
 }
 
+/* Celdas de la tabla */
+
 td {
     padding: 8px;
     text-align: center;
 }
 
+/* Color alternado en filas pares */
 tr:nth-child(even) {
     background-color: #ecf0f1;
 }
 
+/* Estilo de los botones */
 button {
     background-color: #27ae60;
     color: white;
@@ -48,6 +66,8 @@ button {
     border: none;
     border-radius: 4px;
 }
+
+/* Cambio de color al pasar el mouse sobre el botón */
 
 button:hover {
     background-color: #1e8449;
